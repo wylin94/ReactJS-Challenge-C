@@ -7,21 +7,25 @@ import './Home.css';
 function Home() {
 	return (
 		<>
-			<body>
-				<div>Please Select A Risk Level For Your Investment Portfolio</div>
+			<body className='homeWrapper'>
 
-				<div>
-					<div>
-						<div>Low</div>
-						<div>High</div>
+				<div className='homeLabelContainer'>
+					<div className='homeLabel'>Please Select A Risk Level For Your Investment Portfolio</div>
+					<div className='homeLowHighLabelContainer'>
+						<div className='homeLowHightLabel'>Low</div>
+						<div className='homeLowHightLabel'>High</div>
 					</div>
+				</div>
+
+				<div className='homeRiskSelector'>
 					<div>
 						{}
 					</div>
-					<div>
-						<div>Table</div>
-						<div>button</div>
-					</div>
+				</div>
+
+				<div>
+					<div>Table</div>
+					<div>button</div>
 				</div>
 
 			</body>
