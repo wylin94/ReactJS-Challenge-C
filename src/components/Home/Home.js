@@ -5,7 +5,8 @@ import './Home.css';
 
 function Home() {
 	const risks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	const riskTable = [
+	const riskTableLabels = ['Risk', 'Bonds %', 'Large Cap %', 'Mid Cap %', 'Foreign %', 'Small Cap %'];
+	const riskTableData = [
 		{risk: 1, bonds: 80, large: 20, mid: 0, foreign: 0, small: 0},
 		{risk: 2, bonds: 70, large: 15, mid: 15, foreign: 0, small: 0},
 		{risk: 3, bonds: 60, large: 15, mid: 15, foreign: 10, small: 0},
@@ -23,12 +24,12 @@ function Home() {
 	const [showDonut, setShowDonut] = useState(false);
 
 	const props = [
-		riskTable[selectedRisk - 1]?.risk,
-		riskTable[selectedRisk - 1]?.bonds,
-		riskTable[selectedRisk - 1]?.large,
-		riskTable[selectedRisk - 1]?.mid,
-		riskTable[selectedRisk - 1]?.foreign,
-		riskTable[selectedRisk - 1]?.small
+		riskTableData[selectedRisk - 1]?.risk,
+		riskTableData[selectedRisk - 1]?.bonds,
+		riskTableData[selectedRisk - 1]?.large,
+		riskTableData[selectedRisk - 1]?.mid,
+		riskTableData[selectedRisk - 1]?.foreign,
+		riskTableData[selectedRisk - 1]?.small
 	];
 
 	const handleRiskClick =(risk) => {
@@ -79,14 +80,13 @@ function Home() {
 					<table className='homeRiskTable'>
 						<tbody>
 							<tr>
-								<th className='homeRiskTableColRisk'>Risk</th>
-								<th className='homeRiskTableCol'>Bonds %</th>
-								<th className='homeRiskTableCol'>Large Cap %</th>
-								<th className='homeRiskTableCol'>Mid Cap %</th>
-								<th className='homeRiskTableCol'>Foreign %</th>
-								<th className='homeRiskTableCol'>Small Cap %</th>
+								{riskTableLabels.map(label => {
+									return (
+										<th key={label} className={label === 'Risk' ? 'homeRiskTableColRisk' : 'homeRiskTableCol'}>{label}</th>
+									)
+								})}
 							</tr>
-							{riskTable.map(row => {
+							{riskTableData.map(row => {
 								return (
 									<tr key={row.risk} id={row.risk === selectedRisk ? 'highlightRow' : ''}>
 										<td>{row.risk}</td>

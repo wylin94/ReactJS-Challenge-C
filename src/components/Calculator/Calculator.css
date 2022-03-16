@@ -50,6 +50,7 @@
 	border: 1px solid #e9e9e9;
 	border-radius: 2px;
 	width: 700px;
+	background-color: white;
 }
 
 .calCPTableLabel {
@@ -70,4 +71,42 @@
 
 .calCPTableLabel :nth-child(3){
 	margin-right: 11px;
+}
+
+.calCPTableBody {
+	display: flex;
+	margin: 10px;
+}
+
+.calCPTableLeft {
+	display: flex;
+	flex-direction: column;
+	width: 470px;
+}
+
+.calCPTableRow {
+	position: relative;
+	display: flex;
+	margin: 10px;
+}
+
+.calCPTableRow label {
+	font-size: 17px;
+}
+
+.calCPTableRowInputs {
+	display: flex;
+	position: absolute;
+	left: 103px;
+}
+
+.calCPTableRowInputs input {
+	height: 27px;
+	width: 95px;
+	font-size: 12px;
+	margin-right: 15px;
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 0px 5px;
+	text-align: right;
 }
