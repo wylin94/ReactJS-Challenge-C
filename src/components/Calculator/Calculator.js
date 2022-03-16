@@ -35,13 +35,19 @@ function Calculator() {
 				</table>
 			</div>
 
-			<div className='calCurrentContainer'>
-				<div className='calCurrentLabel'>Please Enter Your Current Portfolio</div>
-				<div className='calCurrentButton button'>Rebalance</div>
+			<div className='calCPContainer'>
+				<div className='calCPLabel'>Please Enter Your Current Portfolio</div>
+				<div className='calCPButton button'>Rebalance</div>
 			</div>
 
-			<div className='calCurrentTableContainer'>
-
+			<div className='calCPTableContainer'>
+				<div className='calCPTableLabel'>
+					<label>Current Amount</label>
+					<label>Difference</label>
+					<label>New Amount</label>
+					<label>Recommended Transfers</label>
+				</div>
+				<div className='calCPTableBody'></div>
 			</div>
 
 		</div>

@@ -13,7 +13,7 @@
 	display: flex;
 	justify-content: left;
 	align-items: flex-start;
-	margin: 9px;
+	margin: 10px;
 	width: 700px;
 }
 
@@ -23,25 +23,51 @@
 	margin-left: 10px;
 }
 
-.calCurrentContainer {
+.calCPContainer {
 	display: flex;
 	align-items: center;
-	margin: 10px 10px 0px 10px;
+	margin: 14px 10px 0px 10px;
 	justify-content: space-between;
 	width: 700px;
 }
 
-.calCurrentLabel {
+.calCPLabel {
 	font-size: 22px;
 	font-weight: bold;
 	margin-left: 10px;
 }
 
-.calCurrentButton {
+.calCPButton {
 	height: 40px;
 	margin-right: 10px;
 }
 
-.calCurrentTableContainer {
-	
+.calCPTableContainer {
+	display: flex;
+	flex-direction: column;
+	margin-top: 15px;
+	font-size: 17px;
+	border: 1px solid #e9e9e9;
+	border-radius: 2px;
+	width: 700px;
+}
+
+.calCPTableLabel {
+	padding: 10px 0px 10px 65px;
+	font-size: 17px;
+	font-weight: 600;
+	background-color: #f9f9f9;
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.calCPTableLabel :nth-child(1){
+	margin-right: 60px;
+}
+
+.calCPTableLabel :nth-child(2){
+	margin-right: 30px;
+}
+
+.calCPTableLabel :nth-child(3){
+	margin-right: 11px;
 }
