@@ -17,10 +17,15 @@ function Home() {
 					</div>
 				</div>
 
-				<div className='homeRiskSelector'>
-					<div>
-						{}
+				<div className='homeRiskSelectorContainer'>
+					<div className='homeRiskSelectorUl'>
+						{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(risk => {
+							return (
+								<div className='homeRiskSelectorLi' key={risk}>{risk}</div>
+							)
+						})}
 					</div>
+					<div className='homeRiskSelectorButton'>Continue</div>
 				</div>
 
 				<div>

@@ -31,6 +31,48 @@
 	font-weight: 500;
 }
 
-.homeHighLabel {
+.homeRiskSelectorContainer {
+	display: flex;
+	/* background-color: lightblue */
+}
 
+/* .homeRiskSelector {
+	height: 60px;
+	width: 620px;
+	background-color: yellow;
+} */
+
+.homeRiskSelectorUl {
+	display: flex;
+	width: 620px;
+	/* background-color: red; */
+}
+
+.homeRiskSelectorLi {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 27px;
+	font-weight: 500;
+	height: 56px;
+	width: 62px;
+	border: 2px solid black;
+	border-radius: 5px;
+	margin: 5px 2px;
+	cursor: pointer;
+}
+
+.homeRiskSelectorButton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 17px;
+	font-weight: 700;
+	background-color: #73d0ff;
+	height: 56px;
+	width: 100px;
+	border: 2px solid black;
+	border-radius: 5px;
+	cursor: pointer;
+	margin: 5px;
 }
