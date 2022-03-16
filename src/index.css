@@ -10,3 +10,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 17px;
+	font-weight: 700;
+	color: black;
+	background-color: #73d0ff;
+	height: 56px;
+	width: 100px;
+	border: 2px solid black;
+	border-radius: 5px;
+	cursor: pointer;
+	margin: 5px;
+}

@@ -11,32 +11,38 @@ function Calculator() {
 			<div className='calLabel'>Personalized Portfolio</div>
 
 			<div className='calRiskLevelLabelContainer'>
-				<div className='calRiskLevelLabel'>Risk Level {}</div>
+				<div className='calRiskLevelLabel'>Risk Level {location.state[0]}</div>
 			</div>
 
 			<div className='homeRiskTableContainer'>
 				<table className='homeRiskTable'>
-					<tr>
-						<th className='homeRiskTableCol'>Bonds</th>
-						<th className='homeRiskTableCol'>Large Cap</th>
-						<th className='homeRiskTableCol'>Mid Cap</th>
-						<th className='homeRiskTableCol'>Foreign</th>
-						<th className='homeRiskTableCol'>Small Cap</th>
-					</tr>
+					<tbody>
 						<tr>
-							<td>{location.state[0]}</td>
-							<td>{location.state[1]}</td>
-							<td>{location.state[2]}</td>
-							<td>{location.state[3]}</td>
-							<td>{location.state[4]}</td>
+							<th className='homeRiskTableCol'>Bonds</th>
+							<th className='homeRiskTableCol'>Large Cap</th>
+							<th className='homeRiskTableCol'>Mid Cap</th>
+							<th className='homeRiskTableCol'>Foreign</th>
+							<th className='homeRiskTableCol'>Small Cap</th>
 						</tr>
+						<tr>
+							<td>{location.state[1]}%</td>
+							<td>{location.state[2]}%</td>
+							<td>{location.state[3]}%</td>
+							<td>{location.state[4]}%</td>
+							<td>{location.state[5]}%</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 
+			<div className='calCurrentContainer'>
+				<div className='calCurrentLabel'>Please Enter Your Current Portfolio</div>
+				<div className='calCurrentButton button'>Rebalance</div>
+			</div>
 
-			<div></div>
+			<div className='calCurrentTableContainer'>
 
-			<div></div>
+			</div>
 
 		</div>
 	)

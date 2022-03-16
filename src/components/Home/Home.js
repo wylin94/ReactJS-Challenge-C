@@ -23,6 +23,7 @@ function Home() {
 	const [showDonut, setShowDonut] = useState(false);
 
 	const props = [
+		riskTable[selectedRisk - 1]?.risk,
 		riskTable[selectedRisk - 1]?.bonds,
 		riskTable[selectedRisk - 1]?.large,
 		riskTable[selectedRisk - 1]?.mid,
@@ -45,7 +46,7 @@ function Home() {
 	};
 
 	return (
-		<body className='homeWrapper'>
+		<div className='homeWrapper'>
 
 			<div className='homeLabelContainer'>
 				<div className='homeLabel'>Please Select A Risk Level For Your Investment Portfolio</div>
@@ -67,35 +68,37 @@ function Home() {
 						)
 					})}
 				</div>
-				{!selectedRisk && <div className='homeRiskSelectorButtonOff'>Continue</div>}
+				{!selectedRisk && <div className='homeRiskSelectorButtonOff button'>Continue</div>}
 				{selectedRisk && <NavLink to={{pathname: '/calculator', state: props}} exact={true} className='homeRiskSelectorButtonLink'>
-					<div className='homeRiskSelectorButtonOn'>Continue</div>
+					<div className='button'>Continue</div>
 				</NavLink>}
 			</div>
 
 			<div className='homeRiskTableDonutContainer'>
 				{showChart && <div className='homeRiskTableContainer'>
 					<table className='homeRiskTable'>
-						<tr>
-							<th className='homeRiskTableColRisk'>Risk</th>
-							<th className='homeRiskTableCol'>Bonds %</th>
-							<th className='homeRiskTableCol'>Large Cap %</th>
-							<th className='homeRiskTableCol'>Mid Cap %</th>
-							<th className='homeRiskTableCol'>Foreign %</th>
-							<th className='homeRiskTableCol'>Small Cap %</th>
-						</tr>
-						{riskTable.map(row => {
-							return (
-								<tr id={row.risk === selectedRisk ? 'highlightRow' : ''}>
-									<td>{row.risk}</td>
-									<td>{row.bonds}</td>
-									<td>{row.large}</td>
-									<td>{row.mid}</td>
-									<td>{row.foreign}</td>
-									<td>{row.small}</td>
-								</tr>
-							)
-						})}
+						<tbody>
+							<tr>
+								<th className='homeRiskTableColRisk'>Risk</th>
+								<th className='homeRiskTableCol'>Bonds %</th>
+								<th className='homeRiskTableCol'>Large Cap %</th>
+								<th className='homeRiskTableCol'>Mid Cap %</th>
+								<th className='homeRiskTableCol'>Foreign %</th>
+								<th className='homeRiskTableCol'>Small Cap %</th>
+							</tr>
+							{riskTable.map(row => {
+								return (
+									<tr key={row.risk} id={row.risk === selectedRisk ? 'highlightRow' : ''}>
+										<td>{row.risk}</td>
+										<td>{row.bonds}</td>
+										<td>{row.large}</td>
+										<td>{row.mid}</td>
+										<td>{row.foreign}</td>
+										<td>{row.small}</td>
+									</tr>
+								)
+							})}
+						</tbody>
 					</table>
 				</div>}
 
@@ -111,7 +114,7 @@ function Home() {
 				></img>
 			</div>
 
-		</body>
+		</div>
 	)
 }
 

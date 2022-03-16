@@ -22,3 +22,26 @@
 	font-weight: bold;
 	margin-left: 10px;
 }
+
+.calCurrentContainer {
+	display: flex;
+	align-items: center;
+	margin: 10px 10px 0px 10px;
+	justify-content: space-between;
+	width: 700px;
+}
+
+.calCurrentLabel {
+	font-size: 22px;
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+.calCurrentButton {
+	height: 40px;
+	margin-right: 10px;
+}
+
+.calCurrentTableContainer {
+	
+}
