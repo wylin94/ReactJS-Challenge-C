@@ -60,6 +60,10 @@
 	border: 2px solid black;
 	border-radius: 5px;
 	margin: 5px 2px;
+}
+
+.homeRiskSelectorLi:hover {
+	background-color: #e6ff3f;
 	cursor: pointer;
 }
 
@@ -78,23 +82,41 @@
 	margin: 5px;
 }
 
+.homeRiskSelectorButton:hover {
+	display: flex;
+	cursor: pointer;
+}
+
 .homeRiskTableContainer {
 	display: flex;
 	width: 730px;
-	/* background-color: lightcyan; */
+	margin-top: 15px;
 }
 
 .homeRiskTable {
 	border-collapse: collapse;
-  width: 100%;
+  width: 700px;
 }
 
 .homeRiskTable th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
+	font-weight: 800;
+  text-align: center;
   background-color: #f9f9f9;
+}
 
+.homeRiskTableColRisk {
+	width: 9%;
+}
+
+.homeRiskTableCol {
+	width: 18%;
+}
+
+.homeRiskTable td {
+	font-weight: 600;
+  text-align: right;
 }
 
 .homeRiskTable td, .homeRiskTable th {
@@ -112,4 +134,5 @@
 
 .homeRiskTable tr:hover {
 	background-color: #ddd;
+	cursor: pointer;
 }

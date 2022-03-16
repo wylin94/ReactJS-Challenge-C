@@ -45,12 +45,12 @@ function Home() {
 				<div className='homeRiskTableContainer'>
 					<table className='homeRiskTable'>
 						<tr>
-							<th>Risk</th>
-							<th>Bonds %</th>
-							<th>Large Cap %</th>
-							<th>Mid Cap %</th>
-							<th>Foreign %</th>
-							<th>Small Cap %</th>
+							<th className='homeRiskTableColRisk'>Risk</th>
+							<th className='homeRiskTableCol'>Bonds %</th>
+							<th className='homeRiskTableCol'>Large Cap %</th>
+							<th className='homeRiskTableCol'>Mid Cap %</th>
+							<th className='homeRiskTableCol'>Foreign %</th>
+							<th className='homeRiskTableCol'>Small Cap %</th>
 						</tr>
 						{riskTable.map(row => {
 							return (
@@ -65,7 +65,7 @@ function Home() {
 							)
 						})}
 					</table>
-					<div>button</div>
+					<div></div>
 				</div>
 
 			</body>
