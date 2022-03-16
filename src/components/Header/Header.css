@@ -16,10 +16,6 @@
 	cursor: pointer;
 }
 
-.headerLogo:hover {
-	cursor: pointer;
-}
-
 .headerTitle {
 	display: flex;
 	font-size: 55px;
