@@ -1,0 +1,24 @@
+.calWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.calLabel {
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.calRiskLevelLabelContainer {
+	display: flex;
+	justify-content: left;
+	align-items: flex-start;
+	margin: 9px;
+	width: 700px;
+}
+
+.calRiskLevelLabel {
+	font-size: 22px;
+	font-weight: bold;
+	margin-left: 10px;
+}

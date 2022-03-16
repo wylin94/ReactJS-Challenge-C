@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import './Home.css';
@@ -22,6 +21,14 @@ function Home() {
 	const [selectedRisk, setSelectedRisk] = useState();
 	const [showChart, setShowChart] = useState(true);
 	const [showDonut, setShowDonut] = useState(false);
+
+	const props = [
+		riskTable[selectedRisk - 1]?.bonds,
+		riskTable[selectedRisk - 1]?.large,
+		riskTable[selectedRisk - 1]?.mid,
+		riskTable[selectedRisk - 1]?.foreign,
+		riskTable[selectedRisk - 1]?.small
+	];
 
 	const handleRiskClick =(risk) => {
 		setSelectedRisk(risk);
@@ -61,7 +68,7 @@ function Home() {
 					})}
 				</div>
 				{!selectedRisk && <div className='homeRiskSelectorButtonOff'>Continue</div>}
-				{selectedRisk && <NavLink to='/calculator' exact={true} className='homeRiskSelectorButtonLink'>
+				{selectedRisk && <NavLink to={{pathname: '/calculator', state: props}} exact={true} className='homeRiskSelectorButtonLink'>
 					<div className='homeRiskSelectorButtonOn'>Continue</div>
 				</NavLink>}
 			</div>
