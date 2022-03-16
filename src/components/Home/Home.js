@@ -60,7 +60,10 @@ function Home() {
 						)
 					})}
 				</div>
-				<div className='homeRiskSelectorButton'>Continue</div>
+				{!selectedRisk && <div className='homeRiskSelectorButtonOff'>Continue</div>}
+				{selectedRisk && <NavLink to='/calculator' exact={true} className='homeRiskSelectorButtonLink'>
+					<div className='homeRiskSelectorButtonOn'>Continue</div>
+				</NavLink>}
 			</div>
 
 			<div className='homeRiskTableDonutContainer'>
@@ -89,7 +92,9 @@ function Home() {
 					</table>
 				</div>}
 
-				{showDonut && <div className='homeRiskDonutContainer'>donut</div>}
+				{showDonut && <div className='homeRiskDonutContainer'>
+					Donut Chart
+				</div>}
 				
 				<img 
 					className='chartDonutLogo' 
