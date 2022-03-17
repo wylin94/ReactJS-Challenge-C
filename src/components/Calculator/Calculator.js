@@ -11,6 +11,7 @@ function Calculator() {
 	const [cPDiff, setCPDiff] = useState(['', '', '', '', '']);
 	const [cPNew, setCPNew] = useState(['', '', '', '', '']);
 	const [cPRec, setCPRec] = useState([]);
+	const [inputError, setInputError] = useState(false);
 
 	const updateCPCurrent = (e, label) => {
 		let currentcPInput = [...cPCurrent];
@@ -25,13 +26,27 @@ function Calculator() {
 	const handleRebalance = () => {
 		// HANDLE NEW AMOUNT AND DIFFERENCE AMOUNT CALCULATION
 		const totalCurrent = cPCurrent.reduce((a, b) => a + b, 0);
+		for (let i = 0; i < cPCurrent.length; i++) {
+			if (isNaN(cPCurrent[i]) || (cPCurrent[i].toString().split('').includes('.') && cPCurrent[i].toString().split('.')[1].length > 2)) {
+				setCPRec(['Please use only positive digits or zero when entering current amounts. Please enter all inputs correctly.']);
+				setInputError(true);
+				return;
+			}
+		}
+		// if (isNaN(totalCurrent)) {
+		// 	setCPRec(['Please use only positive digits or zero when entering current amounts. Please enter all inputs correctly.']);
+		// 	setInputError(true);
+		// 	return;
+		// } 
+		setInputError(false);
+		
 		let diffArray = [];
 		let newAmountArray = [];
 		for (let i = 0; i < riskLabels.length; i++) {
 			const newAmount = totalCurrent * location.state[i + 1] / 100;
 			const diffAmount = newAmount - cPCurrent[i];
-			newAmountArray.push(newAmount.toFixed(2));
-			diffArray.push(diffAmount.toFixed(2));
+			newAmountArray.push(Number(newAmount.toFixed(2)));
+			diffArray.push(Number(diffAmount.toFixed(2)));
 		}
 		setCPNew(newAmountArray);
 		setCPDiff(diffArray);
@@ -42,19 +57,19 @@ function Calculator() {
 		let posArray = [], negArray = [], finalRec = [];
 		diffArrayCopy.forEach((el, i) => {el >= 0 ? posArray.push(i) : negArray.push(i)});
 		posArray.forEach(el => {
-			while (Number(diffArrayCopy[el].toFixed(2))  > 0) {
+			while (Number(diffArrayCopy[el].toFixed(2)) > 0.01) {
 				if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] > 0) {
-					finalRec.push(`•Transfer $${Math.abs(diffArrayCopy[negArray[0]]).toFixed(2)} from ${riskLabels[el]} to ${riskLabels[negArray[0]]}.`)
+					finalRec.push(`•Transfer $${Math.abs(diffArrayCopy[negArray[0]]).toFixed(2)} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`)
 					diffArrayCopy[el] += diffArrayCopy[negArray[0]];
 					diffArrayCopy[negArray[0]] = 0;
 					negArray.shift();
 				} else if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] === 0) {
-					finalRec.push(`•Transfer $${diffArrayCopy[el].toFixed(2)} from ${riskLabels[el]} to ${riskLabels[negArray[0]]}.`);
+					finalRec.push(`•Transfer $${diffArrayCopy[el].toFixed(2)} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`);
 					diffArrayCopy[el] = 0;
 					diffArrayCopy[negArray[0]] = 0;
 					negArray.shift();
 				} else if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] < 0) {
-					finalRec.push(`•Transfer $${diffArrayCopy[el].toFixed(2)} from ${riskLabels[el]} to ${riskLabels[negArray[0]]}.`);
+					finalRec.push(`•Transfer $${diffArrayCopy[el].toFixed(2)} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`);
 					diffArrayCopy[negArray[0]] += diffArrayCopy[el];
 					diffArrayCopy[el] = 0;
 				}
@@ -124,8 +139,8 @@ function Calculator() {
 										<input 
 											className='calCPTableRowDiff' 
 											type='text' 
-											value={(cPDiff[i] >= 0 && cPDiff[i] !== '') ? '+' + cPDiff[i] : cPDiff[i]}
-											style={(cPDiff[i] >= 0 && cPDiff[i] !== '') ?{color: 'green'} : {color: 'red'}} 
+											value={(cPDiff[i] >= 0 && cPDiff[i] !== '') ? `+${cPDiff[i]}` : cPDiff[i]}
+											style={(cPDiff[i] >= 0 && cPDiff[i] !== '') ? {color: 'green'} : {color: 'red'}} 
 											disabled
 										></input>
 										<input 
@@ -141,10 +156,10 @@ function Calculator() {
 					</div>
 
 					<div className='calCPTableRight'>
-						<div className='calRecContainer'>
+						<div className='calRecContainer' style={(inputError) ? {color: 'red'} : {color: 'black'}}>
 							{cPRec.map((rec, i) => {
 								return (
-									<div key={i}>{rec}</div>
+									<div key={i} className='calRec'>{rec}</div>
 								)
 							})}
 						</div>
