@@ -10,6 +10,7 @@ function Calculator() {
 	const [cPCurrent, setCPCurrent] = useState([null, null, null, null, null]);
 	const [cPDiff, setCPDiff] = useState(['', '', '', '', '']);
 	const [cPNew, setCPNew] = useState(['', '', '', '', '']);
+	const [cPRec, setCPRec] = useState([]);
 
 	const updateCPCurrent = (e, label) => {
 		let currentcPInput = [...cPCurrent];
@@ -33,6 +34,8 @@ function Calculator() {
 		}
 		setCPNew(newAmountArray);
 		setCPDiff(diffArray);
+
+		
 	}
 
 	return (
@@ -113,7 +116,13 @@ function Calculator() {
 					</div>
 
 					<div className='calCPTableRight'>
-						<input disabled></input>
+						<div className='calRecContainer'>
+							{cPRec.map(rec => {
+								return (
+									<div>hi</div>
+								)
+							})}
+						</div>
 					</div>
 				</div>
 			</div>
