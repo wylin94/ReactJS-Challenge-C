@@ -8,7 +8,7 @@ function Calculator() {
 	const cpTableLabels = ['Current Amount', 'Difference', 'New Amount', 'Recommended Transfers'];
 
 	let location = useLocation();
-	
+
 	return (
 		<div className='calWrapper'>
 			<div className='calLabel'>Personalized Portfolio</div>
@@ -60,8 +60,8 @@ function Calculator() {
 									<label>{label} $:</label>
 									<div className='calCPTableRowInputs'>
 										<input className='calCPTableRowCurrent'></input>
-										<input className='calCPTableRowDiff'></input>
-										<input className='calCPTableRowNew'></input>
+										<input className='calCPTableRowDiff' disabled></input>
+										<input className='calCPTableRowNew' disabled></input>
 									</div>
 								</div>
 							)
@@ -69,7 +69,7 @@ function Calculator() {
 					</div>
 
 					<div className='calCPTableRight'>
-						<input></input>
+						<input disabled></input>
 					</div>
 				</div>
 			</div>
