@@ -28,8 +28,8 @@ function Calculator() {
 		for (let i = 0; i < riskLabels.length; i++) {
 			const newAmount = totalCurrent * location.state[i + 1] / 100;
 			const diffAmount = newAmount - cPCurrent[i];
-			newAmountArray.push(newAmount);
-			diffArray.push(diffAmount);
+			newAmountArray.push(newAmount.toFixed(2));
+			diffArray.push(diffAmount.toFixed(2));
 		}
 		setCPNew(newAmountArray);
 		setCPDiff(diffArray);
@@ -66,7 +66,10 @@ function Calculator() {
 
 			<div className='calCPContainer'>
 				<div className='calCPLabel'>Please Enter Your Current Portfolio</div>
-				<div className='calCPButton button' onClick={handleRebalance} style={cPCurrent.includes(null)?{opacity: 0.4}:{opacity: 1}}>Rebalance</div>
+				<div className='calCPButton button' 
+					onClick={handleRebalance} 
+					style={cPCurrent.includes(null) ? {opacity: 0.4} : {opacity: 1}}
+				>Rebalance</div>
 			</div>
 
 			<div className='calCPTableContainer'>
@@ -85,9 +88,24 @@ function Calculator() {
 								<div key={i} className='calCPTableRow'>
 									<label>{label} $:</label>
 									<div className='calCPTableRowInputs'>
-										<input className='calCPTableRowCurrent' type='text' onChange={(e) => updateCPCurrent(e, label)}></input>
-										<input className='calCPTableRowDiff' type='text' value={cPDiff[i]} disabled></input>
-										<input className='calCPTableRowNew' type='text' value={cPNew[i]} disabled></input>
+										<input 
+											className='calCPTableRowCurrent' 
+											type='text' 
+											onChange={(e) => updateCPCurrent(e, label)}
+										></input>
+										<input 
+											className='calCPTableRowDiff' 
+											type='text' 
+											value={(cPDiff[i] >= 0 && cPDiff[i] !== '') ? '+' + cPDiff[i] : cPDiff[i]}
+											style={(cPDiff[i] >= 0 && cPDiff[i] !== '') ?{color: 'green'} : {color: 'red'}} 
+											disabled
+										></input>
+										<input 
+											className='calCPTableRowNew' 
+											type='text' 
+											value={cPNew[i]} 
+											disabled
+										></input>
 									</div>
 								</div>
 							)
