@@ -24,7 +24,6 @@ function Calculator() {
 
 	const handleRebalance = () => {
 		// HANDLE NEW AMOUNT AND DIFFERENCE AMOUNT CALCULATION
-
 		const totalCurrent = cPCurrent.reduce((a, b) => a + b, 0);
 		let diffArray = [];
 		let newAmountArray = [];
@@ -40,24 +39,22 @@ function Calculator() {
 		// HANDLE RECOMMENDATION
 		for (let i = 0; i < diffArray.length; i++) {diffArray[i] = Number(diffArray[i]);}
 		let diffArrayCopy = [...diffArray];
-		let posArray = [];
-		let negArray = [];
-		let finalRec = [];
+		let posArray = [], negArray = [], finalRec = [];
 		diffArrayCopy.forEach((el, i) => {el >= 0 ? posArray.push(i) : negArray.push(i)});
 		posArray.forEach(el => {
 			while (Number(diffArrayCopy[el].toFixed(2))  > 0) {
 				if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] > 0) {
-					finalRec.push(`•Transfer $${Math.abs(diffArrayCopy[negArray[0]])} from ${riskLabels[el]} to ${riskLabels[negArray[0]]}.`)
+					finalRec.push(`•Transfer $${Math.abs(diffArrayCopy[negArray[0]]).toFixed(2)} from ${riskLabels[el]} to ${riskLabels[negArray[0]]}.`)
 					diffArrayCopy[el] += diffArrayCopy[negArray[0]];
 					diffArrayCopy[negArray[0]] = 0;
 					negArray.shift();
 				} else if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] === 0) {
-					finalRec.push(`•Transfer $${diffArrayCopy[el]} from ${riskLabels[el]} to ${riskLabels[negArray[0]]}.`);
+					finalRec.push(`•Transfer $${diffArrayCopy[el].toFixed(2)} from ${riskLabels[el]} to ${riskLabels[negArray[0]]}.`);
 					diffArrayCopy[el] = 0;
 					diffArrayCopy[negArray[0]] = 0;
 					negArray.shift();
 				} else if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] < 0) {
-					finalRec.push(`•Transfer $${diffArrayCopy[el]} from ${riskLabels[el]} to ${riskLabels[negArray[0]]}.`);
+					finalRec.push(`•Transfer $${diffArrayCopy[el].toFixed(2)} from ${riskLabels[el]} to ${riskLabels[negArray[0]]}.`);
 					diffArrayCopy[negArray[0]] += diffArrayCopy[el];
 					diffArrayCopy[el] = 0;
 				}
