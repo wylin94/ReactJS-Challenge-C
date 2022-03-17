@@ -23,6 +23,8 @@ function Calculator() {
 	}
 
 	const handleRebalance = () => {
+		// HANDLE NEW AMOUNT AND DIFFERENCE AMOUNT CALCULATION
+
 		const totalCurrent = cPCurrent.reduce((a, b) => a + b, 0);
 		let diffArray = [];
 		let newAmountArray = [];
@@ -34,46 +36,34 @@ function Calculator() {
 		}
 		setCPNew(newAmountArray);
 		setCPDiff(diffArray);
-		console.log(diffArray)
-		for (let i = 0; i < diffArray.length; i++) {
-			diffArray[i] = Number(diffArray[i]);
-		};
-		console.log(diffArray)
+
+		// HANDLE RECOMMENDATION
+		for (let i = 0; i < diffArray.length; i++) {diffArray[i] = Number(diffArray[i]);}
+		let diffArrayCopy = [...diffArray];
 		let posArray = [];
 		let negArray = [];
-		diffArray.forEach((el, i) => {el >= 0 ? posArray.push(i) : negArray.push(i)});
-		console.log('diffArray', diffArray)
-		console.log('posArray', posArray)
-		console.log('negArray', negArray)
+		let finalRec = [];
+		diffArrayCopy.forEach((el, i) => {el >= 0 ? posArray.push(i) : negArray.push(i)});
 		posArray.forEach(el => {
-			while (diffArray[el] > 0) {
-				if (diffArray[el] + diffArray[negArray[0]] > 0) {
-					let temp = [...cPRec];
-					temp.push('•Transfer $' + Math.abs(diffArray[negArray[0]]) + ' from ' + riskLabels[el] + ' to ' + riskLabels[negArray[0]])
-					setCPRec(temp);
-					diffArray[el] += diffArray[negArray[0]];
-					diffArray[negArray[0]] = 0;
+			while (Number(diffArrayCopy[el].toFixed(2))  > 0) {
+				if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] > 0) {
+					finalRec.push(`•Transfer $${Math.abs(diffArrayCopy[negArray[0]])} from ${riskLabels[el]} to ${riskLabels[negArray[0]]}.`)
+					diffArrayCopy[el] += diffArrayCopy[negArray[0]];
+					diffArrayCopy[negArray[0]] = 0;
 					negArray.shift();
-					console.log(1)
-				} else if (diffArray[el] + diffArray[negArray[0]] === 0) {
-					let temp = [...cPRec];
-					temp.push('•Transfer $' + diffArray[el] + ' from ' + riskLabels[el] + ' to ' + riskLabels[negArray[0]]);
-					setCPRec(temp);
-					diffArray[el] = 0;
-					diffArray[negArray[0]] = 0;
+				} else if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] === 0) {
+					finalRec.push(`•Transfer $${diffArrayCopy[el]} from ${riskLabels[el]} to ${riskLabels[negArray[0]]}.`);
+					diffArrayCopy[el] = 0;
+					diffArrayCopy[negArray[0]] = 0;
 					negArray.shift();
-					console.log(2)
-				} else if (diffArray[el] + diffArray[negArray[0]] < 0) {
-					let temp = [...cPRec];
-					temp.push('•Transfer $' + diffArray[el] + ' from ' + riskLabels[el] + ' to ' + riskLabels[negArray[0]]);
-					setCPRec(temp);
-					diffArray[negArray[0]] += diffArray[el];
-					diffArray[el] = 0;
-					console.log(3)
+				} else if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] < 0) {
+					finalRec.push(`•Transfer $${diffArrayCopy[el]} from ${riskLabels[el]} to ${riskLabels[negArray[0]]}.`);
+					diffArrayCopy[negArray[0]] += diffArrayCopy[el];
+					diffArrayCopy[el] = 0;
 				}
-			}
+			};
 		});
-		console.log(cPRec)
+		setCPRec(finalRec);
 	}
 
 	return (
@@ -157,7 +147,7 @@ function Calculator() {
 						<div className='calRecContainer'>
 							{cPRec.map((rec, i) => {
 								return (
-									<div key={i}>hi</div>
+									<div key={i}>{rec}</div>
 								)
 							})}
 						</div>
