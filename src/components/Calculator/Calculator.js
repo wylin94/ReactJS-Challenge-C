@@ -34,8 +34,46 @@ function Calculator() {
 		}
 		setCPNew(newAmountArray);
 		setCPDiff(diffArray);
-
-		
+		console.log(diffArray)
+		for (let i = 0; i < diffArray.length; i++) {
+			diffArray[i] = Number(diffArray[i]);
+		};
+		console.log(diffArray)
+		let posArray = [];
+		let negArray = [];
+		diffArray.forEach((el, i) => {el >= 0 ? posArray.push(i) : negArray.push(i)});
+		console.log('diffArray', diffArray)
+		console.log('posArray', posArray)
+		console.log('negArray', negArray)
+		posArray.forEach(el => {
+			while (diffArray[el] > 0) {
+				if (diffArray[el] + diffArray[negArray[0]] > 0) {
+					let temp = [...cPRec];
+					temp.push('•Transfer $' + Math.abs(diffArray[negArray[0]]) + ' from ' + riskLabels[el] + ' to ' + riskLabels[negArray[0]])
+					setCPRec(temp);
+					diffArray[el] += diffArray[negArray[0]];
+					diffArray[negArray[0]] = 0;
+					negArray.shift();
+					console.log(1)
+				} else if (diffArray[el] + diffArray[negArray[0]] === 0) {
+					let temp = [...cPRec];
+					temp.push('•Transfer $' + diffArray[el] + ' from ' + riskLabels[el] + ' to ' + riskLabels[negArray[0]]);
+					setCPRec(temp);
+					diffArray[el] = 0;
+					diffArray[negArray[0]] = 0;
+					negArray.shift();
+					console.log(2)
+				} else if (diffArray[el] + diffArray[negArray[0]] < 0) {
+					let temp = [...cPRec];
+					temp.push('•Transfer $' + diffArray[el] + ' from ' + riskLabels[el] + ' to ' + riskLabels[negArray[0]]);
+					setCPRec(temp);
+					diffArray[negArray[0]] += diffArray[el];
+					diffArray[el] = 0;
+					console.log(3)
+				}
+			}
+		});
+		console.log(cPRec)
 	}
 
 	return (
@@ -117,9 +155,9 @@ function Calculator() {
 
 					<div className='calCPTableRight'>
 						<div className='calRecContainer'>
-							{cPRec.map(rec => {
+							{cPRec.map((rec, i) => {
 								return (
-									<div>hi</div>
+									<div key={i}>hi</div>
 								)
 							})}
 						</div>
