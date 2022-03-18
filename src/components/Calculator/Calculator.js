@@ -24,8 +24,7 @@ function Calculator() {
 	}
 
 	const handleRebalance = () => {
-		// HANDLE NEW AMOUNT AND DIFFERENCE AMOUNT CALCULATION
-		const totalCurrent = cPCurrent.reduce((a, b) => a + b, 0);
+		// HANDLE INPUT ERROR
 		for (let i = 0; i < cPCurrent.length; i++) {
 			if (isNaN(cPCurrent[i]) || (cPCurrent[i].toString().split('').includes('.') && cPCurrent[i].toString().split('.')[1].length > 2)) {
 				setCPRec(['Please use only positive digits or zero when entering current amounts. Please enter all inputs correctly.']);
@@ -33,13 +32,10 @@ function Calculator() {
 				return;
 			}
 		}
-		// if (isNaN(totalCurrent)) {
-		// 	setCPRec(['Please use only positive digits or zero when entering current amounts. Please enter all inputs correctly.']);
-		// 	setInputError(true);
-		// 	return;
-		// } 
 		setInputError(false);
-		
+
+		// HANDLE NEW AMOUNT AND DIFFERENCE CALCULATION
+		const totalCurrent = cPCurrent.reduce((a, b) => a + b, 0);
 		let diffArray = [];
 		let newAmountArray = [];
 		for (let i = 0; i < riskLabels.length; i++) {
@@ -59,17 +55,17 @@ function Calculator() {
 		posArray.forEach(el => {
 			while (Number(diffArrayCopy[el].toFixed(2)) > 0.01) {
 				if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] > 0) {
-					finalRec.push(`•Transfer $${Math.abs(diffArrayCopy[negArray[0]]).toFixed(2)} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`)
+					finalRec.push(`•Transfer $${Number(Math.abs(diffArrayCopy[negArray[0]]).toFixed(2))} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`)
 					diffArrayCopy[el] += diffArrayCopy[negArray[0]];
 					diffArrayCopy[negArray[0]] = 0;
 					negArray.shift();
 				} else if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] === 0) {
-					finalRec.push(`•Transfer $${diffArrayCopy[el].toFixed(2)} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`);
+					finalRec.push(`•Transfer $${Number(diffArrayCopy[el].toFixed(2))} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`);
 					diffArrayCopy[el] = 0;
 					diffArrayCopy[negArray[0]] = 0;
 					negArray.shift();
 				} else if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] < 0) {
-					finalRec.push(`•Transfer $${diffArrayCopy[el].toFixed(2)} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`);
+					finalRec.push(`•Transfer $${Number(diffArrayCopy[el].toFixed(2))} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`);
 					diffArrayCopy[negArray[0]] += diffArrayCopy[el];
 					diffArrayCopy[el] = 0;
 				}

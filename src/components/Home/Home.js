@@ -59,11 +59,11 @@ function Home() {
 
 			<div className='homeRiskSelectorContainer'>
 				<div className='homeRiskSelectorUl'>
-					{risks.map(risk => {
+					{risks.map((risk, i) => {
 						return (
-							<div className='homeRiskSelectorLi' 
+							<div className={selectedRisk ? 'homeRiskSelectorLiNoHover' : 'homeRiskSelectorLi'} 
 								key={risk} 
-								id={risk === selectedRisk ? 'highlightRisk' : ''}
+								style={selectedRisk - 1 === i ? {backgroundColor:'#e6ff3f'} : []}
 								onClick={() => handleRiskClick(risk)}
 							>{risk}</div>
 						)
@@ -88,7 +88,8 @@ function Home() {
 							</tr>
 							{riskTableData.map(row => {
 								return (
-									<tr key={row.risk} id={row.risk === selectedRisk ? 'highlightRow' : ''}>
+									// <tr key={row.risk} id={row.risk === selectedRisk ? ('highlightRowNoHover') : 'highlightRow'}>
+									<tr key={row.risk} id={selectedRisk ? (row.risk === selectedRisk ? 'highlightRowNoHover' : '') : 'highlightRow'}>
 										<td>{row.risk}</td>
 										<td>{row.bonds}</td>
 										<td>{row.large}</td>
