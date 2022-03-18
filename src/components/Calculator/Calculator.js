@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 import './Calculator.css';
 
 function Calculator() {
+	const userRiskLevelObj = useSelector(state => state.userRiskLevel);
+	let userRiskLevelArray;
+	if (userRiskLevelObj == null) {userRiskLevelArray = [0, 0, 0, 0, 0, 0]}
+		else {userRiskLevelArray = Object.values(userRiskLevelObj)}
+
 	const riskLabels = ['Bonds', 'Large Cap', 'Mid Cap', 'Foreign', 'Small Cap'];
 	const cpTableLabels = ['Current Amount', 'Difference', 'New Amount', 'Recommended Transfers'];
-	let location = useLocation();
+
 	const [cPCurrent, setCPCurrent] = useState([null, null, null, null, null]);
 	const [cPDiff, setCPDiff] = useState(['', '', '', '', '']);
 	const [cPNew, setCPNew] = useState(['', '', '', '', '']);
@@ -24,6 +30,8 @@ function Calculator() {
 	}
 
 	const handleRebalance = () => {
+		if (userRiskLevelArray[0] === 0) return;
+
 		// HANDLE INPUT ERROR
 		for (let i = 0; i < cPCurrent.length; i++) {
 			if (isNaN(cPCurrent[i]) || (cPCurrent[i].toString().split('').includes('.') && cPCurrent[i].toString().split('.')[1].length > 2)) {
@@ -39,7 +47,7 @@ function Calculator() {
 		let diffArray = [];
 		let newAmountArray = [];
 		for (let i = 0; i < riskLabels.length; i++) {
-			const newAmount = totalCurrent * location.state[i + 1] / 100;
+			const newAmount = totalCurrent * userRiskLevelArray[i + 1] / 100;
 			const diffAmount = newAmount - cPCurrent[i];
 			newAmountArray.push(Number(newAmount.toFixed(2)));
 			diffArray.push(Number(diffAmount.toFixed(2)));
@@ -79,7 +87,7 @@ function Calculator() {
 			<div className='calLabel'>Personalized Portfolio</div>
 
 			<div className='calRiskLevelLabelContainer'>
-				<div className='calRiskLevelLabel'>Risk Level {location.state[0]}</div>
+				<div className='calRiskLevelLabel'>Risk Level {userRiskLevelArray[0]}</div>
 			</div>
 
 			<div className='homeRiskTableContainer'>
@@ -95,7 +103,7 @@ function Calculator() {
 						<tr>
 							{riskLabels.map((label, i) => {
 								return (
-									<td key={label}>{location.state[i + 1]}%</td>
+									<td key={label}>{userRiskLevelArray[i + 1]}%</td>
 								)
 							})}
 						</tr>

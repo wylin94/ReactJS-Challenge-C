@@ -8,6 +8,8 @@ import './Home.css';
 
 function Home() {
 	const dispatch = useDispatch();
+	const userRiskLevel = useSelector(state => state.userRiskLevel)?.risk;
+	console.log('test', userRiskLevel)
 
 	const risks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	const riskTableLabels = ['Risk', 'Bonds %', 'Large Cap %', 'Mid Cap %', 'Foreign %', 'Small Cap %'];
@@ -24,15 +26,15 @@ function Home() {
 		{risk: 10, bonds: 0, large: 5, mid: 25, foreign: 30, small: 40},
 	];
 
-	const [selectedRisk, setSelectedRisk] = useState();
+	// const [selectedRisk, setSelectedRisk] = useState();
 	const [showChart, setShowChart] = useState(true);
 	const [showDonut, setShowDonut] = useState(false);
-	const donutProps = selectedRisk ? Object.values(riskTableData[selectedRisk - 1]) : null;
-	const calProps = selectedRisk ? Object.values(riskTableData[selectedRisk - 1]) : null;
+	const donutProps = userRiskLevel ? Object.values(riskTableData[userRiskLevel - 1]) : null;
+	const calProps = userRiskLevel ? Object.values(riskTableData[userRiskLevel - 1]) : null;
 
 	const handleRiskClick =(risk) => {
-		setSelectedRisk(risk);
-		dispatch(setUserRiskLevel(risk));
+		// setSelectedRisk(risk);
+		dispatch(setUserRiskLevel(riskTableData[risk - 1]));
 	};
 
 	const handleChartDonutClick = () => {
@@ -60,16 +62,16 @@ function Home() {
 				<div className='homeRiskSelectorUl'>
 					{risks.map((risk, i) => {
 						return (
-							<div className={selectedRisk ? 'homeRiskSelectorLiNoHover' : 'homeRiskSelectorLi'} 
+							<div className={userRiskLevel ? 'homeRiskSelectorLiNoHover' : 'homeRiskSelectorLi'} 
 								key={risk} 
-								style={selectedRisk - 1 === i ? {backgroundColor:'#e6ff3f'} : []}
+								style={userRiskLevel - 1 === i ? {backgroundColor:'#e6ff3f'} : []}
 								onClick={() => handleRiskClick(risk)}
 							>{risk}</div>
 						)
 					})}
 				</div>
-				{!selectedRisk && <div className='homeRiskSelectorButtonOff button'>Continue</div>}
-				{selectedRisk && <NavLink to={{pathname: '/calculator', state: calProps}} exact={true} className='homeRiskSelectorButtonLink'>
+				{!userRiskLevel && <div className='homeRiskSelectorButtonOff button'>Continue</div>}
+				{userRiskLevel && <NavLink to={{pathname: '/calculator', state: calProps}} exact={true} className='homeRiskSelectorButtonLink'>
 					<div className='button'>Continue</div>
 				</NavLink>}
 			</div>
@@ -87,7 +89,7 @@ function Home() {
 							</tr>
 							{riskTableData.map(row => {
 								return (
-									<tr key={row.risk} id={selectedRisk ? (row.risk === selectedRisk ? 'highlightRowNoHover' : '') : 'highlightRow'}>
+									<tr key={row.risk} id={userRiskLevel ? (row.risk === userRiskLevel ? 'highlightRowNoHover' : '') : 'highlightRow'}>
 										<td>{row.risk}</td>
 										<td>{row.bonds}</td>
 										<td>{row.large}</td>

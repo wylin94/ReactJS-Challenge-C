@@ -10,7 +10,7 @@ export const setUserRiskLevel = (riskLevel) => (dispatch) => {
 	return riskLevel;
 }
 
-const setUserRiskLevelReducer = (state = 0, action) => {
+const setUserRiskLevelReducer = (state = null, action) => {
 	switch (action.type) {
 		case LOAD:
 			return action.riskLevel;
