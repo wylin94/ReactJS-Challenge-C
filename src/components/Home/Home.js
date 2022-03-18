@@ -88,7 +88,6 @@ function Home() {
 							</tr>
 							{riskTableData.map(row => {
 								return (
-									// <tr key={row.risk} id={row.risk === selectedRisk ? ('highlightRowNoHover') : 'highlightRow'}>
 									<tr key={row.risk} id={selectedRisk ? (row.risk === selectedRisk ? 'highlightRowNoHover' : '') : 'highlightRow'}>
 										<td>{row.risk}</td>
 										<td>{row.bonds}</td>
