@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
+import DonutChart from '../DonutChart';
 
 import './Home.css';
 
@@ -23,7 +24,9 @@ function Home() {
 	const [showChart, setShowChart] = useState(true);
 	const [showDonut, setShowDonut] = useState(false);
 
-	const props = [
+	const donutProps = riskTableData[selectedRisk - 1];
+
+	const calProps = [
 		riskTableData[selectedRisk - 1]?.risk,
 		riskTableData[selectedRisk - 1]?.bonds,
 		riskTableData[selectedRisk - 1]?.large,
@@ -70,7 +73,7 @@ function Home() {
 					})}
 				</div>
 				{!selectedRisk && <div className='homeRiskSelectorButtonOff button'>Continue</div>}
-				{selectedRisk && <NavLink to={{pathname: '/calculator', state: props}} exact={true} className='homeRiskSelectorButtonLink'>
+				{selectedRisk && <NavLink to={{pathname: '/calculator', state: calProps}} exact={true} className='homeRiskSelectorButtonLink'>
 					<div className='button'>Continue</div>
 				</NavLink>}
 			</div>
@@ -103,7 +106,7 @@ function Home() {
 				</div>}
 
 				{showDonut && <div className='homeRiskDonutContainer'>
-					Donut Chart
+					<DonutChart donutProps={donutProps}/>
 				</div>}
 				
 				<img 
