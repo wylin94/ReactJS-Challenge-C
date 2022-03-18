@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-
 import DonutChart from '../DonutChart';
 import { setUserRiskLevel } from '../../store/userRiskLevel';
 import './Home.css';
@@ -9,8 +8,6 @@ import './Home.css';
 function Home() {
 	const dispatch = useDispatch();
 	const userRiskLevel = useSelector(state => state.userRiskLevel)?.risk;
-	console.log('test', userRiskLevel)
-
 	const risks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	const riskTableLabels = ['Risk', 'Bonds %', 'Large Cap %', 'Mid Cap %', 'Foreign %', 'Small Cap %'];
 	const riskTableData = [
@@ -25,31 +22,18 @@ function Home() {
 		{risk: 9, bonds: 5, large: 15, mid: 40, foreign: 25, small: 15},
 		{risk: 10, bonds: 0, large: 5, mid: 25, foreign: 30, small: 40},
 	];
-
-	// const [selectedRisk, setSelectedRisk] = useState();
-	const [showChart, setShowChart] = useState(true);
-	const [showDonut, setShowDonut] = useState(false);
-	const donutProps = userRiskLevel ? Object.values(riskTableData[userRiskLevel - 1]) : null;
-	const calProps = userRiskLevel ? Object.values(riskTableData[userRiskLevel - 1]) : null;
+	const [toggleChartDonut, setToggleChartDonut] = useState(true);
 
 	const handleRiskClick =(risk) => {
-		// setSelectedRisk(risk);
 		dispatch(setUserRiskLevel(riskTableData[risk - 1]));
 	};
 
-	const handleChartDonutClick = () => {
-		if (showChart === true) {
-			setShowChart(false);
-			setShowDonut(true);
-		} else {
-			setShowChart(true);
-			setShowDonut(false);
-		}
+	const handleChartDonutToggle = () => {
+		toggleChartDonut === true ? setToggleChartDonut(false) : setToggleChartDonut(true);
 	};
-
+	console.log('test', Boolean(userRiskLevel))
 	return (
 		<div className='homeWrapper'>
-
 			<div className='homeLabelContainer'>
 				<div className='homeLabel'>Please Select A Risk Level For Your Investment Portfolio</div>
 				<div className='homeLowHighLabelContainer'>
@@ -57,27 +41,25 @@ function Home() {
 					<div className='homeLowHightLabel'>High</div>
 				</div>
 			</div>
-
 			<div className='homeRiskSelectorContainer'>
 				<div className='homeRiskSelectorUl'>
 					{risks.map((risk, i) => {
 						return (
 							<div className={userRiskLevel ? 'homeRiskSelectorLiNoHover' : 'homeRiskSelectorLi'} 
 								key={risk} 
-								style={userRiskLevel - 1 === i ? {backgroundColor:'#e6ff3f'} : []}
+								style={userRiskLevel - 1 === i ? {backgroundColor:'#e6ff3f'} : {}}
 								onClick={() => handleRiskClick(risk)}
 							>{risk}</div>
 						)
 					})}
 				</div>
 				{!userRiskLevel && <div className='homeRiskSelectorButtonOff button'>Continue</div>}
-				{userRiskLevel && <NavLink to={{pathname: '/calculator', state: calProps}} exact={true} className='homeRiskSelectorButtonLink'>
+				{Boolean(userRiskLevel) && <NavLink to='/calculator' exact={true} className='homeRiskSelectorButtonLink'>
 					<div className='button'>Continue</div>
 				</NavLink>}
 			</div>
-
 			<div className='homeRiskTableDonutContainer'>
-				{showChart && <div className='homeRiskTableContainer'>
+				{toggleChartDonut && <div className='homeRiskTableContainer'>
 					<table className='homeRiskTable'>
 						<tbody>
 							<tr>
@@ -102,20 +84,17 @@ function Home() {
 						</tbody>
 					</table>
 				</div>}
-
-				{showDonut && <div className='homeRiskDonutContainer'>
+				{!toggleChartDonut && <div className='homeRiskDonutContainer'>
 					<div className='donutCenterText'>INVESTMENT PORTFOLIO</div>
-					<DonutChart donutProps={donutProps}/>
+					<DonutChart donutProps={userRiskLevel ? Object.values(riskTableData[userRiskLevel - 1]) : null}/>
 				</div>}
-				
 				<img 
 					className='chartDonutLogo' 
-					src={'../images/' + (showChart ? 'donutlogo.png' : 'chartlogo.jpeg')}  
-					alt={(showChart ? 'Donut Logo' : 'Chart Logo')} 
-					onClick={handleChartDonutClick}
+					src={'../images/' + (toggleChartDonut ? 'donutlogo.png' : 'chartlogo.jpeg')}  
+					alt={(toggleChartDonut ? 'Chart Logo' : 'Donut Logo')} 
+					onClick={handleChartDonutToggle}
 				></img>
 			</div>
-
 		</div>
 	)
 }

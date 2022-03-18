@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useSelector } from "react-redux";
-
 import './Calculator.css';
 
 function Calculator() {
@@ -12,7 +10,6 @@ function Calculator() {
 
 	const riskLabels = ['Bonds', 'Large Cap', 'Mid Cap', 'Foreign', 'Small Cap'];
 	const cpTableLabels = ['Current Amount', 'Difference', 'New Amount', 'Recommended Transfers'];
-
 	const [cPCurrent, setCPCurrent] = useState([null, null, null, null, null]);
 	const [cPDiff, setCPDiff] = useState(['', '', '', '', '']);
 	const [cPNew, setCPNew] = useState(['', '', '', '', '']);
@@ -30,6 +27,7 @@ function Calculator() {
 	}
 
 	const handleRebalance = () => {
+		// HANDLE NO RISK SELECTED
 		if (userRiskLevelArray[0] === 0) return;
 
 		// HANDLE INPUT ERROR
@@ -85,11 +83,9 @@ function Calculator() {
 	return (
 		<div className='calWrapper'>
 			<div className='calLabel'>Personalized Portfolio</div>
-
 			<div className='calRiskLevelLabelContainer'>
 				<div className='calRiskLevelLabel'>Risk Level {userRiskLevelArray[0]}</div>
 			</div>
-
 			<div className='homeRiskTableContainer'>
 				<table className='homeRiskTable'>
 					<tbody>
@@ -110,7 +106,6 @@ function Calculator() {
 					</tbody>
 				</table>
 			</div>
-
 			<div className='calCPContainer'>
 				<div className='calCPLabel'>Please Enter Your Current Portfolio</div>
 				<div className='calCPButton button' 
@@ -118,7 +113,6 @@ function Calculator() {
 					style={cPCurrent.includes(null) ? {opacity: 0.4} : {opacity: 1}}
 				>Rebalance</div>
 			</div>
-
 			<div className='calCPTableContainer'>
 				<div className='calCPTableLabel'>
 					{cpTableLabels.map(label => {
@@ -127,7 +121,6 @@ function Calculator() {
 						)
 					})}
 				</div>
-
 				<div className='calCPTableBody'>
 					<div className='calCPTableLeft'>
 						{riskLabels.map((label, i) => {
@@ -158,7 +151,6 @@ function Calculator() {
 							)
 						})}
 					</div>
-
 					<div className='calCPTableRight'>
 						<div className='calRecContainer' style={(inputError) ? {color: 'red'} : {color: 'black'}}>
 							{cPRec.map((rec, i) => {
@@ -170,7 +162,6 @@ function Calculator() {
 					</div>
 				</div>
 			</div>
-
 		</div>
 	)
 }
