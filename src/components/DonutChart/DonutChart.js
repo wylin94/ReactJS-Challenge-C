@@ -15,7 +15,6 @@ function DonutChart({donutProps}) {
 	const data = {
 		labels: labels,
 		datasets: [{
-			// label: 'My First Dataset',
 			data: donutProps.slice(1),
 			backgroundColor: [
 				'rgb(31, 119, 180)',
@@ -37,13 +36,8 @@ function DonutChart({donutProps}) {
 	};
 
 	const options = {
-		legend: {
-			display: false,
-			position: "right"
-		},
-		elements: {
-			arc: {borderWidth: 0}
-		},
+		legend: {display: false, position: "right"},
+		elements: {arc: {borderWidth: 0}},
     plugins: {
       datalabels: {
         display: true,
@@ -54,21 +48,16 @@ function DonutChart({donutProps}) {
 				textStrokeColor: 'black',
 				textStrokeWidth: 1.3,
 				font: {size: 18},
-
       },
-			// doughnutlabel: {
-      //   labels: [{
-      //     text: '550',
-      //     font: {
-      //       size: 20,
-      //       weight: 'bold'
-      //     }
-      //   }, {
-      //     text: 'total'
-      //   }]
-      // }
-    }
-
+			doughnutlabel: {
+        labels: [{
+          text: '550',
+          font: {size: 20, weight: 'bold'}
+        }, {
+          text: 'total'
+        }]
+      }
+    },
 	};
 
 	return(
