@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import DonutChart from '../DonutChart';
+import { useSelector, useDispatch } from "react-redux";
 
+import DonutChart from '../DonutChart';
+import { setUserRiskLevel } from '../../store/userRiskLevel';
 import './Home.css';
 
 function Home() {
+	const dispatch = useDispatch();
+
 	const risks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	const riskTableLabels = ['Risk', 'Bonds %', 'Large Cap %', 'Mid Cap %', 'Foreign %', 'Small Cap %'];
 	const riskTableData = [
@@ -28,6 +32,7 @@ function Home() {
 
 	const handleRiskClick =(risk) => {
 		setSelectedRisk(risk);
+		dispatch(setUserRiskLevel(risk));
 	};
 
 	const handleChartDonutClick = () => {

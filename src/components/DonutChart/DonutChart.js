@@ -1,7 +1,7 @@
 import { Doughnut } from "react-chartjs-2";
 import {Chart, ArcElement} from 'chart.js'
-// import "chartjs-plugin-doughnutlabel";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+// import "chartjs-plugin-doughnutlabel";
 
 import './DonutChart.css';
 
