@@ -23,23 +23,14 @@ function Home() {
 	const [selectedRisk, setSelectedRisk] = useState();
 	const [showChart, setShowChart] = useState(true);
 	const [showDonut, setShowDonut] = useState(false);
-
-	const donutProps = riskTableData[selectedRisk - 1];
-
-	const calProps = [
-		riskTableData[selectedRisk - 1]?.risk,
-		riskTableData[selectedRisk - 1]?.bonds,
-		riskTableData[selectedRisk - 1]?.large,
-		riskTableData[selectedRisk - 1]?.mid,
-		riskTableData[selectedRisk - 1]?.foreign,
-		riskTableData[selectedRisk - 1]?.small
-	];
+	const donutProps = selectedRisk ? Object.values(riskTableData[selectedRisk - 1]) : null;
+	const calProps = selectedRisk ? Object.values(riskTableData[selectedRisk - 1]) : null;
 
 	const handleRiskClick =(risk) => {
 		setSelectedRisk(risk);
 	};
 
-	const hadleChartDonutClick = () => {
+	const handleChartDonutClick = () => {
 		if (showChart === true) {
 			setShowChart(false);
 			setShowDonut(true);
@@ -113,7 +104,7 @@ function Home() {
 					className='chartDonutLogo' 
 					src={'../images/' + (showChart ? 'donutlogo.png' : 'chartlogo.jpeg')}  
 					alt={(showChart ? 'Donut Logo' : 'Chart Logo')} 
-					onClick={hadleChartDonutClick}
+					onClick={handleChartDonutClick}
 				></img>
 			</div>
 

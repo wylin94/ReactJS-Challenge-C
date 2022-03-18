@@ -5,8 +5,9 @@ import './DonutChart.css';
 
 Chart.register(ArcElement);
 
-function DonutChart(donutProps) {
+function DonutChart({donutProps}) {
 	console.log('from donut chart', donutProps)
+
 	const options = {
 		// legend: {
 		// 	display: false,
@@ -18,22 +19,33 @@ function DonutChart(donutProps) {
 	};
 
 	const data = {
-		labels: ['Red', 'Blue', 'Yellow'],
+		labels: ['Bonds', 'Large Cap', 'Mid Cap', 'Foreign', 'Small Cap'],
 		datasets: [{
 			// label: 'My First Dataset',
-			data: [300, 50, 100],
+			data: donutProps.slice(1),
 			backgroundColor: [
-				'rgb(255, 99, 132)',
-				'rgb(54, 162, 235)',
-				'rgb(255, 205, 86)'
+				'rgb(31, 119, 180)',
+				'rgb(171, 199, 232)',
+				'rgb(255, 127, 14)',
+				'rgb(255, 187, 120)',
+				'rgb(44, 160, 44)'
+			],
+			hoverBackgroundColor: [
+				'rgb(64, 132, 180)',
+				'rgb(184, 205, 232)',
+				'rgb(255, 141, 41)',
+				'rgb(255, 199, 144)',
+				'rgb(80, 170, 80)'
 			],
 			// hoverBackgroundColor: chartColors
-			hoverOffset: 40
+			// hoverOffset: 40
 		}]
 	};
 
 	return(
-		<Doughnut data={data} options={options} />
+		<div className='donutChartSize'> 
+			<Doughnut data={data} options={options} />
+		</div>
 	)
 }
 

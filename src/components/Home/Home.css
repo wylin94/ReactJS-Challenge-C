@@ -165,7 +165,9 @@
 }
 
 .homeRiskDonutContainer {
-	background-color: lightblue;
+	display: flex;
+	justify-content: center;
+	/* background-color: yellow; */
 	width: 700px;
 }
 
