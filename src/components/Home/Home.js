@@ -97,6 +97,7 @@ function Home() {
 				</div>}
 
 				{showDonut && <div className='homeRiskDonutContainer'>
+					<div className='donutCenterText'>INVESTMENT PORTFOLIO</div>
 					<DonutChart donutProps={donutProps}/>
 				</div>}
 				

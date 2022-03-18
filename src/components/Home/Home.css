@@ -171,6 +171,16 @@
 	width: 700px;
 }
 
+.donutCenterText {
+	position: absolute;
+	top: 225px;
+	width: 200px;
+	font-size: 20px;
+	line-height: 30px;
+	text-align: center;
+	/* background-color: #73d0ff; */
+}
+
 .chartDonutLogo {
 	width: 55px;
 	height: 50px;
