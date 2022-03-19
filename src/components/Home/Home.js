@@ -31,7 +31,7 @@ function Home() {
 	const handleChartDonutToggle = () => {
 		toggleChartDonut === true ? setToggleChartDonut(false) : setToggleChartDonut(true);
 	};
-	console.log('test', Boolean(userRiskLevel))
+	
 	return (
 		<div className='homeWrapper'>
 			<div className='homeLabelContainer'>

@@ -3,55 +3,51 @@ import { useSelector } from "react-redux";
 import './Calculator.css';
 
 function Calculator() {
-	const userRiskLevelObj = useSelector(state => state.userRiskLevel);
-	let userRiskLevelArray;
-	if (userRiskLevelObj == null) {userRiskLevelArray = [0, 0, 0, 0, 0, 0]}
-		else {userRiskLevelArray = Object.values(userRiskLevelObj)}
-
+	const userRiskLevel = Object.values(useSelector(state => state.userRiskLevel));
 	const riskLabels = ['Bonds', 'Large Cap', 'Mid Cap', 'Foreign', 'Small Cap'];
 	const cpTableLabels = ['Current Amount', 'Difference', 'New Amount', 'Recommended Transfers'];
-	const [cPCurrent, setCPCurrent] = useState([null, null, null, null, null]);
-	const [cPDiff, setCPDiff] = useState(['', '', '', '', '']);
-	const [cPNew, setCPNew] = useState(['', '', '', '', '']);
-	const [cPRec, setCPRec] = useState([]);
+	const [userInput, setUserInput] = useState([null, null, null, null, null]);
+	const [diff, setDiff] = useState(['', '', '', '', '']);
+	const [newAmt, setNewAmt] = useState(['', '', '', '', '']);
+	const [recTrans, setRecTrans] = useState([]);
 	const [inputError, setInputError] = useState(false);
 
-	const updateCPCurrent = (e, label) => {
-		let currentcPInput = [...cPCurrent];
-		if (label === 'Bonds') {currentcPInput[0] = Number(e.target.value);} 
-			else if (label === 'Large Cap') {currentcPInput[1] = Number(e.target.value);} 
-			else if (label === 'Mid Cap') {currentcPInput[2] = Number(e.target.value);} 
-			else if (label === 'Foreign') {currentcPInput[3] = Number(e.target.value);} 
-			else if (label === 'Small Cap') {currentcPInput[4] = Number(e.target.value);}
-		setCPCurrent(currentcPInput);
+	const updateUserInput = (e, label) => {
+		let curUserInput = [...userInput];
+		if (label === 'Bonds') {curUserInput[0] = Number(e.target.value);} 
+			else if (label === 'Large Cap') {curUserInput[1] = Number(e.target.value);} 
+			else if (label === 'Mid Cap') {curUserInput[2] = Number(e.target.value);} 
+			else if (label === 'Foreign') {curUserInput[3] = Number(e.target.value);} 
+			else if (label === 'Small Cap') {curUserInput[4] = Number(e.target.value);}
+		setUserInput(curUserInput);
 	}
 
 	const handleRebalance = () => {
 		// HANDLE NO RISK SELECTED
-		if (userRiskLevelArray[0] === 0) return;
+		if (userRiskLevel[0] === 0) return;
 
 		// HANDLE INPUT ERROR
-		for (let i = 0; i < cPCurrent.length; i++) {
-			if (isNaN(cPCurrent[i]) || (cPCurrent[i].toString().split('').includes('.') && cPCurrent[i].toString().split('.')[1].length > 2)) {
-				setCPRec(['Please use only positive digits or zero when entering current amounts. Please enter all inputs correctly.']);
+		for (let i = 0; i < userInput.length; i++) {
+			if (isNaN(userInput[i]) || (userInput[i].toString().split('').includes('.') && userInput[i].toString().split('.')[1].length > 2)) {
+				setRecTrans(['Please use only positive digits or zero when entering current amounts. Please enter all inputs correctly.']);
 				setInputError(true);
 				return;
 			}
 		}
-		setInputError(false);
-
+		
 		// HANDLE NEW AMOUNT AND DIFFERENCE CALCULATION
-		const totalCurrent = cPCurrent.reduce((a, b) => a + b, 0);
+		setInputError(false);
+		const totalCurrent = userInput.reduce((a, b) => a + b, 0);
 		let diffArray = [];
-		let newAmountArray = [];
+		let newAmtArray = [];
 		for (let i = 0; i < riskLabels.length; i++) {
-			const newAmount = totalCurrent * userRiskLevelArray[i + 1] / 100;
-			const diffAmount = newAmount - cPCurrent[i];
-			newAmountArray.push(Number(newAmount.toFixed(2)));
+			const newAmount = totalCurrent * userRiskLevel[i + 1] / 100;
+			const diffAmount = newAmount - userInput[i];
+			newAmtArray.push(Number(newAmount.toFixed(2)));
 			diffArray.push(Number(diffAmount.toFixed(2)));
 		}
-		setCPNew(newAmountArray);
-		setCPDiff(diffArray);
+		setNewAmt(newAmtArray);
+		setDiff(diffArray);
 
 		// HANDLE RECOMMENDATION
 		for (let i = 0; i < diffArray.length; i++) {diffArray[i] = Number(diffArray[i]);}
@@ -77,14 +73,14 @@ function Calculator() {
 				}
 			};
 		});
-		setCPRec(finalRec);
+		setRecTrans(finalRec);
 	}
 
 	return (
 		<div className='calWrapper'>
 			<div className='calLabel'>Personalized Portfolio</div>
 			<div className='calRiskLevelLabelContainer'>
-				<div className='calRiskLevelLabel'>Risk Level {userRiskLevelArray[0]}</div>
+				<div className='calRiskLevelLabel'>Risk Level {userRiskLevel[0]}</div>
 			</div>
 			<div className='homeRiskTableContainer'>
 				<table className='homeRiskTable'>
@@ -99,7 +95,7 @@ function Calculator() {
 						<tr>
 							{riskLabels.map((label, i) => {
 								return (
-									<td key={label}>{userRiskLevelArray[i + 1]}%</td>
+									<td key={label}>{userRiskLevel[i + 1]}%</td>
 								)
 							})}
 						</tr>
@@ -110,7 +106,7 @@ function Calculator() {
 				<div className='calCPLabel'>Please Enter Your Current Portfolio</div>
 				<div className='calCPButton button' 
 					onClick={handleRebalance} 
-					style={cPCurrent.includes(null) ? {opacity: 0.4} : {opacity: 1}}
+					style={userInput.includes(null) ? {opacity: 0.4} : {opacity: 1}}
 				>Rebalance</div>
 			</div>
 			<div className='calCPTableContainer'>
@@ -131,19 +127,19 @@ function Calculator() {
 										<input 
 											className='calCPTableRowCurrent' 
 											type='text' 
-											onChange={(e) => updateCPCurrent(e, label)}
+											onChange={(e) => updateUserInput(e, label)}
 										></input>
 										<input 
 											className='calCPTableRowDiff' 
 											type='text' 
-											value={(cPDiff[i] >= 0 && cPDiff[i] !== '') ? `+${cPDiff[i]}` : cPDiff[i]}
-											style={(cPDiff[i] >= 0 && cPDiff[i] !== '') ? {color: 'green'} : {color: 'red'}} 
+											value={(diff[i] >= 0 && diff[i] !== '') ? `+${diff[i]}` : diff[i]}
+											style={(diff[i] >= 0 && diff[i] !== '') ? {color: 'green'} : {color: 'red'}} 
 											disabled
 										></input>
 										<input 
 											className='calCPTableRowNew' 
 											type='text' 
-											value={cPNew[i]} 
+											value={newAmt[i]} 
 											disabled
 										></input>
 									</div>
@@ -153,7 +149,7 @@ function Calculator() {
 					</div>
 					<div className='calCPTableRight'>
 						<div className='calRecContainer' style={(inputError) ? {color: 'red'} : {color: 'black'}}>
-							{cPRec.map((rec, i) => {
+							{recTrans.map((rec, i) => {
 								return (
 									<div key={i} className='calRec'>{rec}</div>
 								)

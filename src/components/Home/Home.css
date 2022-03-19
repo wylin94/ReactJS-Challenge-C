@@ -2,13 +2,12 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	min-width: 730px;
 }
 
 .homeLabelContainer {
 	display: flex;
 	flex-direction: column;
-	/* align-items: center;
-	justify-content: center; */
 	width: 730px;
 }
 
@@ -53,10 +52,6 @@
 	border-radius: 5px;
 	margin: 5px 2px;
 }
-
-/* #highlightRisk {
-	background-color: #e6ff3f;
-} */
 
 .homeRiskSelectorLi:hover {
 	background-color: #e6ff3f;
@@ -105,7 +100,6 @@
 .homeRiskTableDonutContainer {
 	position: relative;
 	display: flex;
-	/* width: 730px; */
 	margin-top: 15px;
 	left: 20px;
 }
@@ -167,7 +161,6 @@
 .homeRiskDonutContainer {
 	display: flex;
 	justify-content: center;
-	/* background-color: yellow; */
 	width: 700px;
 }
 
@@ -178,7 +171,6 @@
 	font-size: 20px;
 	line-height: 30px;
 	text-align: center;
-	/* background-color: #73d0ff; */
 }
 
 .chartDonutLogo {
@@ -188,4 +180,13 @@
 	border-radius: 5px;
 	margin-left: 10px;
 	cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+	.homeWrapper {
+		position: relative;
+		bottom: 50px;
+		transform: scale(0.8);
+	}
+
 }
