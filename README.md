@@ -9,17 +9,23 @@ Run `npm start` and navigate to [http://localhost:3000/](http://localhost:3000/)
 ## Home Page
 **Select Risk Level**\
 1 being very risk-averse, and 10 being insensitive to risk.\
+<br>
 **Chart**\
 Pre-defined portfolios which allocate a client’s money in certain proportions across multiple investment categories to balance risk.\
+<br>
 **Donut Chart**\
 Pre-defined portfolios based on user selection.\
+<br>
 
 ## Calculator
 **Current Amount**\
 User input for current allocation to each of the 5 investment categories.\
+<br>
 **Difference**\
 Difference between the user current allocation and the new allocation.\
+<br>
 **New Amount**\
 New allocation based on the risk selection.\
+<br>
 **Recommended Transfers**\
 Recommended transfers to bring user current allocation to the new allocation base on the risk selection.\
