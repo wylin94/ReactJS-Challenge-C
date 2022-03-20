@@ -55,7 +55,10 @@ function Calculator() {
 		for (let i = 0; i < diffArray.length; i++) {diffArray[i] = Number(diffArray[i]);}
 		let diffArrayCopy = [...diffArray];
 		let posIdx = [], negIdx = [], rec = [];
-		diffArrayCopy.forEach((el, i) => {el > 0 ? posIdx.push(i) : negIdx.push(i)});
+		diffArrayCopy.forEach((el, i) => {
+			if (el > 0) {posIdx.push(i)}
+				else if (el < 0) {negIdx.push(i)}
+		});
 
 		while (posIdx.length || negIdx.length) {
 			// When there is a exact postive and negative amount
