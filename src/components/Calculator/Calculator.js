@@ -68,10 +68,12 @@ function Calculator() {
 				const item = negIdx[i];
 				if (hash[diffArrayCopy[item] * -1]) {
 					rec.push(`• Transfer $${(Number(diffArrayCopy[item]) * -1).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} from ${riskLabels[negIdx[i]]} to ${riskLabels[hash[diffArrayCopy[item] * -1]]}`);
+					let hashIndex = diffArrayCopy[item] * -1;
 					diffArrayCopy[hash[diffArrayCopy[item] * -1]] = null;
 					diffArrayCopy[item] = null;
 					posIdx.splice(posIdx.indexOf(hash[diffArrayCopy[item] * -1]), 1);
 					negIdx.splice(i, 1);
+					delete hash[hashIndex];
 					i -= 1;
 				} 
 			}
@@ -82,7 +84,6 @@ function Calculator() {
 			negIdx = negIdx.sort((a, b) => diffArrayCopy[b] - diffArrayCopy[a]);
 			let largestNum = diffArrayCopy[posIdx[posIdx.length - 1]];
 			let smallestNum = diffArrayCopy[negIdx[negIdx.length - 1]];
-
 			if (largestNum + smallestNum > 0) {
 				rec.push(`• Transfer $${Number(smallestNum * -1).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} from ${riskLabels[negIdx[negIdx.length - 1]]} to ${riskLabels[posIdx[posIdx.length - 1]]}`);
 				diffArrayCopy[posIdx[posIdx.length - 1]] += smallestNum;
