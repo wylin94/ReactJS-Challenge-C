@@ -91,7 +91,7 @@ function Home() {
 				</div>}
 				<img 
 					className='chartDonutLogo' 
-					src={'../images/' + (toggleChartDonut ? 'donutlogo.png' : 'chartlogo.jpeg')}  
+					src={`../images/${toggleChartDonut ? 'donutlogo.png' : 'chartlogo.jpeg'}`}  
 					alt={(toggleChartDonut ? 'Chart Logo' : 'Donut Logo')} 
 					onClick={handleChartDonutToggle}
 				></img>

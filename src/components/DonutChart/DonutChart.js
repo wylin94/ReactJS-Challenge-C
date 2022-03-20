@@ -29,14 +29,12 @@ function DonutChart({donutProps}) {
 				'rgb(255, 141, 41)',
 				'rgb(255, 199, 144)',
 				'rgb(80, 170, 80)'
-			],
-			// hoverBackgroundColor: chartColors
-			// hoverOffset: 40
+			]
 		}]
 	};
 
 	const options = {
-		legend: {display: false, position: "right"},
+		// legend: {display: false, position: "right"},
 		elements: {arc: {borderWidth: 0}},
     plugins: {
       datalabels: {
@@ -49,15 +47,24 @@ function DonutChart({donutProps}) {
 				textStrokeWidth: 1.3,
 				font: {size: 18},
       },
-			doughnutlabel: {
-        labels: [{
-          text: '550',
-          font: {size: 20, weight: 'bold'}
-        }, {
-          text: 'total'
-        }]
-      }
-    },
+			// doughnutlabel: {
+      //   labels: [{
+      //     text: '550',
+      //     font: {size: 20, weight: 'bold'}
+      //   }, {
+      //     text: 'total'
+      //   }]
+      // },
+			// tooltip: {
+			// 	enabled: true,
+			// 	callbacks: {
+			// 		label: function() {
+			// 			console.log('hi')
+			// 			return 'hi';
+			// 		}
+			// 	}
+			// }
+    }
 	};
 
 	return(

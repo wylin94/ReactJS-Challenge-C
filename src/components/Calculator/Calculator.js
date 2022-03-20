@@ -7,9 +7,9 @@ function Calculator() {
 	const userRiskLevel = Object.values(useSelector(state => state.userRiskLevel));
 	const riskLabels = ['Bonds', 'Large Cap', 'Mid Cap', 'Foreign', 'Small Cap'];
 	const cpTableLabels = ['Current Amount', 'Difference', 'New Amount', 'Recommended Transfers'];
-	const [userInput, setUserInput] = useState([null, null, null, null, null]);
-	const [diff, setDiff] = useState(['', '', '', '', '']);
-	const [newAmt, setNewAmt] = useState(['', '', '', '', '']);
+	const [userInput, setUserInput] = useState(new Array(5));
+	const [diff, setDiff] = useState(new Array(5).fill(''));
+	const [newAmt, setNewAmt] = useState(new Array(5).fill(''));
 	const [recTrans, setRecTrans] = useState([]);
 	const [inputError, setInputError] = useState(false);
 
@@ -132,15 +132,14 @@ function Calculator() {
 				<div className='calCPLabel'>Please Enter Your Current Portfolio</div>
 				<div className='calCPButton button' 
 					onClick={handleRebalance} 
-					style={userInput.includes(null) ? {opacity: 0.4} : {opacity: 1}}
+					style={userInput.includes(undefined) ? {opacity: 0.4} : {opacity: 1}}
 				>Rebalance</div>
 			</div>
 			<div className='calCPTableContainer'>
 				<div className='calCPTableLabel'>
 					{cpTableLabels.map(label => {
 						return (
-							<label key={label}>{label}</label>
-						)
+							<label key={label}>{label}</label>)
 					})}
 				</div>
 				<div className='calCPTableBody'>

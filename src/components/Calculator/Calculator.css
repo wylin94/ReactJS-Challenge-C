@@ -115,6 +115,8 @@
 	border: 1px solid black;
 	animation: pulse 0.7s;
 	animation-iteration-count: 3;
+	outline: 0px;
+	outline-color: currentColor;
 }
 
 @keyframes pulse {
