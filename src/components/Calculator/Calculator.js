@@ -26,6 +26,7 @@ function Calculator() {
 	const handleRebalance = () => {
 		// HANDLE NO RISK SELECTED
 		if (userRiskLevel[0] === 0) return;
+		if (userInput.includes(undefined)) return;
 
 		// HANDLE INPUT ERROR
 		for (let i = 0; i < userInput.length; i++) {
@@ -132,7 +133,7 @@ function Calculator() {
 				<div className='calCPLabel'>Please Enter Your Current Portfolio</div>
 				<div className='calCPButton button' 
 					onClick={handleRebalance} 
-					style={userInput.includes(undefined) ? {opacity: 0.4} : {opacity: 1}}
+					style={userInput.includes(undefined) ? {opacity: 0.4, cursor: 'default'} : {opacity: 1}}
 				>Rebalance</div>
 			</div>
 			<div className='calCPTableContainer'>

@@ -95,6 +95,7 @@
 
 .homeRiskSelectorButtonOff {
 	opacity: 0.4;
+	cursor: default;
 }
 
 .homeRiskTableDonutContainer {
@@ -150,12 +151,10 @@
 
 .homeRiskTable tr:nth-child(even) {
 	background-color:white;
-	cursor: pointer;
 }
 
 .homeRiskTable tr:nth-child(odd) {
 	background-color: #fcfcfc;
-	cursor: pointer;
 }
 
 .homeRiskDonutContainer {
