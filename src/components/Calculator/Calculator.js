@@ -53,28 +53,93 @@ function Calculator() {
 		// HANDLE RECOMMENDATION
 		for (let i = 0; i < diffArray.length; i++) {diffArray[i] = Number(diffArray[i]);}
 		let diffArrayCopy = [...diffArray];
-		let posArray = [], negArray = [], finalRec = [];
-		diffArrayCopy.forEach((el, i) => {el >= 0 ? posArray.push(i) : negArray.push(i)});
-		posArray.forEach(el => {
-			while (Number(diffArrayCopy[el].toFixed(2)) > 0.01) {
-				if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] > 0) {
-					finalRec.push(`•Transfer $${Number(Math.abs(diffArrayCopy[negArray[0]]).toFixed(2))} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`)
-					diffArrayCopy[el] += diffArrayCopy[negArray[0]];
-					diffArrayCopy[negArray[0]] = 0;
-					negArray.shift();
-				} else if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] === 0) {
-					finalRec.push(`•Transfer $${Number(diffArrayCopy[el].toFixed(2))} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`);
-					diffArrayCopy[el] = 0;
-					diffArrayCopy[negArray[0]] = 0;
-					negArray.shift();
-				} else if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] < 0) {
-					finalRec.push(`•Transfer $${Number(diffArrayCopy[el].toFixed(2))} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`);
-					diffArrayCopy[negArray[0]] += diffArrayCopy[el];
-					diffArrayCopy[el] = 0;
+console.log('InitialDiffArrayCopy', diffArrayCopy)
+		let posIdx = [], negIdx = [], rec = [];
+		diffArrayCopy.forEach((el, i) => {el > 0 ? posIdx.push(i) : negIdx.push(i)});
+console.log('posIdx', posIdx, 'negIdx', negIdx)
+console.log('--------------------')
+
+		// let test = 5;
+		// while (test !== 0) {
+		while (posIdx.length || negIdx.length) {
+			let hash = {};
+			posIdx.forEach(el => hash[diffArrayCopy[el]] = el);
+			for (let i = 0; i < negIdx.length; i++) {
+				const item = negIdx[i];
+				if (hash[diffArrayCopy[item] * -1]) {
+					rec.push(`• Transfer $${(Number(diffArrayCopy[item]) * -1).toFixed(2)} from ${riskLabels[negIdx[i]]} to ${riskLabels[hash[diffArrayCopy[item] * -1]]}`)
+					diffArrayCopy[hash[diffArrayCopy[item] * -1]] = null;
+					diffArrayCopy[item] = null;
+					posIdx.splice(posIdx.indexOf(hash[diffArrayCopy[item] * -1]), 1);
+					negIdx.splice(i, 1);
+					i -= 1;
+console.log('reccomend', rec)
+				} 
+			}
+console.log('diffArrayCopy', diffArrayCopy)
+console.log('posIdx', posIdx, 'negIdx', negIdx)
+			if (posIdx.length === 0 && negIdx.length === 0) break;
+
+			posIdx = posIdx.sort((a, b) => diffArrayCopy[a] - diffArrayCopy[b]);
+			negIdx = negIdx.sort((a, b) => diffArrayCopy[b] - diffArrayCopy[a]);
+console.log('sortedPosIdx', posIdx, 'sortedNegIdx', negIdx)
+			let largestNum = diffArrayCopy[posIdx[posIdx.length - 1]];
+			let smallestNum = diffArrayCopy[negIdx[negIdx.length - 1]];
+console.log('largestNum', largestNum, 'smallestNum', smallestNum)
+			if (largestNum + smallestNum > 0) {
+				rec.push(`• Transfer $${Number(smallestNum * -1).toFixed(2)} from ${riskLabels[negIdx[negIdx.length - 1]]} to ${riskLabels[posIdx[posIdx.length - 1]]}`);
+				diffArrayCopy[posIdx[posIdx.length - 1]] += smallestNum;
+				if (diffArrayCopy[posIdx[posIdx.length - 1]] < 0.011) {
+					diffArrayCopy[posIdx[posIdx.length - 1]] = null;
+					posIdx.pop();
 				}
-			};
-		});
-		setRecTrans(finalRec);
+				diffArrayCopy[negIdx[negIdx.length - 1]] = null;
+				negIdx.pop();
+console.log('diffArrayCopy', diffArrayCopy)
+console.log('posIdx', posIdx, 'negIdx', negIdx)
+console.log(' ')
+			} else {
+				rec.push(`• Transfer $${Number(largestNum).toFixed(2)} from ${riskLabels[negIdx[negIdx.length - 1]]} to ${riskLabels[posIdx[posIdx.length - 1]]}`);
+				diffArrayCopy[negIdx[negIdx.length - 1]] += largestNum;
+				if (diffArrayCopy[negIdx[negIdx.length - 1]] > -0.011) {
+					diffArrayCopy[negIdx[negIdx.length - 1]] = null;
+					negIdx.pop();
+				}
+				diffArrayCopy[posIdx[posIdx.length - 1]] = null;
+				posIdx.pop();
+console.log('diffArrayCopy', diffArrayCopy)
+console.log('posIdx', posIdx, 'negIdx', negIdx)
+console.log(' ')
+			}
+		}
+		setRecTrans(rec);
+
+
+
+		// for (let i = 0; i < diffArray.length; i++) {diffArray[i] = Number(diffArray[i]);}
+		// let diffArrayCopy = [...diffArray];
+		// let posArray = [], negArray = [], finalRec = [];
+		// diffArrayCopy.forEach((el, i) => {el >= 0 ? posArray.push(i) : negArray.push(i)});
+		// posArray.forEach(el => {
+		// 	while (Number(diffArrayCopy[el].toFixed(2)) > 0.01) {
+		// 		if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] > 0) {
+		// 			finalRec.push(`•Transfer $${Number(Math.abs(diffArrayCopy[negArray[0]]).toFixed(2))} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`)
+		// 			diffArrayCopy[el] += diffArrayCopy[negArray[0]];
+		// 			diffArrayCopy[negArray[0]] = 0;
+		// 			negArray.shift();
+		// 		} else if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] === 0) {
+		// 			finalRec.push(`•Transfer $${Number(diffArrayCopy[el].toFixed(2))} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`);
+		// 			diffArrayCopy[el] = 0;
+		// 			diffArrayCopy[negArray[0]] = 0;
+		// 			negArray.shift();
+		// 		} else if (diffArrayCopy[el] + diffArrayCopy[negArray[0]] < 0) {
+		// 			finalRec.push(`•Transfer $${Number(diffArrayCopy[el].toFixed(2))} from ${riskLabels[negArray[0]]} to ${riskLabels[el]}.`);
+		// 			diffArrayCopy[negArray[0]] += diffArrayCopy[el];
+		// 			diffArrayCopy[el] = 0;
+		// 		}
+		// 	};
+		// });
+		// setRecTrans(rec);
 	}
 
 	return (
